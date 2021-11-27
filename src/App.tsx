@@ -1,52 +1,47 @@
-// const App=()=> {
-//   console.log(minji,"??")
-//   return (
-//     <>
-//       <h1>React Quiz</h1>
-//       <button>start</button>
-//       <p>scroe</p>
-//       <p>loading...</p>
-//       <button>next question</button>
-//     </>
-//   );
-// }
+import React, { useState } from "react";
+import QuestionCard from "./components/questionQard";
 
-// export default App;
+// types
+import { Difficulty, fetchQuiz } from "./utils/api";
+const Total_QUESTIONS =10;
 
 
-import React, { useReducer } from 'react';
+const App=()=> {
+  const [loading, setLoading] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [number, setNumber] = useState(0);
+  const [userAnswers, setUserAnswers] = useState([]);
+  const [score, setScore] = useState(0);
+  const [gameOver, setGameOver] = useState(true);
 
-type Action = { type: 'INCREASE' } | { type: 'DECREASE' }; // 이렇게 액션을 | 으로 연달아서 쭉 나열하세요.
-
-
-type IState={
-  value:number
-}
-const initValue:IState={
-  value:0
-}
-const reducer=(state: IState, action: any) =>{
-  switch (action.type) {
-    default:
-      throw new Error('Unhandled action');
+  const startTrivia = async()=>{
   }
-}
-
-
-function App() {
-  const [state, dispatch] = useReducer(reducer, initValue);
-  console.log(state,"@@@")
-  // const onIncrease = () => dispatch({ type: 'INCREASE' });
-  // const onDecrease = () => dispatch({ type: 'DECREASE' });
+  const checkAnswer=(e:React.MouseEvent<HTMLButtonElement>)=>{
+    
+  }
+  const nextQuestion=()=>{
+    console.log("???")
+  }
+  
+  const hello = fetchQuiz(Total_QUESTIONS,Difficulty.Easy);
+console.log(hello,"?")
 
   return (
-    <div>
-      <h1>{state}</h1>
-      <div>
-        <button >+1</button>
-        <button >-1</button>
-      </div>
-    </div>
+    <>
+      <h1>React Quiz</h1>
+      <button onClick={startTrivia} >start</button>
+      <p>scroe</p>
+      <p>loading...</p>
+      {/* <QuestionCard 
+      question={questions[number].question}
+      answers={questions[number].answers}
+      callback={checkAnswer}
+      userAnswer={userAnswers ? userAnswers[number] : undefined}
+      questionNr={number + 1}
+      totalQuestions={Total_QUESTIONS}
+      /> */}
+      <button onClick={nextQuestion}>next question</button>
+    </>
   );
 }
 
