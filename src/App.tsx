@@ -1,7 +1,14 @@
-function App() {
+import PizzaComp from "./pizza";
+import pizzas from "./pizza.json";
+
+const App =()=>{
   return (
-    <h1>hello</h1>
-  );
+    <ul>
+      {pizzas.map(item=>{
+        return <PizzaComp key={item.id} pizza={item} />
+      })}
+    </ul>
+  )
 }
 
 export default App;
