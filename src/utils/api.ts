@@ -11,6 +11,8 @@ type IQuiz={
     incorrect_answers: any[];
 }
 
+export type IQuizState= IQuiz & {answers:string[]};
+
 export enum Difficulty{
     Easy = "easy",
     Medium = "medium",
