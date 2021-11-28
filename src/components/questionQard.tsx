@@ -1,8 +1,11 @@
+import styled from "styled-components";
+import { IAnswerObject } from "../App";
+
 type IProps = {
   question: string;
   answers: string[];
-  callback: any;
-  userAnswer: any;
+  callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  userAnswer: IAnswerObject | undefined;
   questionNr: number;
   totalQuestions: number;
 };
@@ -24,11 +27,19 @@ const QuestionCard = ({
       <div>
         {answers.map((answer) => {
           return (
-            <div>
-              <button disabled={userAnswer} onClick={callback}>
-                <span dangerouslySetInnerHTML={{__html: answer}}></span>
+            <Button
+              key={answer}
+              correct={userAnswer?.correctAnswer === answer}
+              userClicked={userAnswer?.answer === answer}
+            >
+              <button
+                disabled={userAnswer ? true : false}
+                value={answer}
+                onClick={callback}
+              >
+                <span dangerouslySetInnerHTML={{ __html: answer }}></span>
               </button>
-            </div>
+            </Button>
           );
         })}
       </div>
@@ -36,4 +47,14 @@ const QuestionCard = ({
   );
 };
 
+type IButton = {
+  correct: boolean;
+  userClicked: boolean;
+};
+
+const Button = styled.div<IButton>`
+button{
+  background: ${({correct,userClicked})=>correct?"green": !correct && userClicked ? "red" : null}
+}
+`;
 export default QuestionCard;

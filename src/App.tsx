@@ -5,7 +5,7 @@ import QuestionCard from "./components/questionQard";
 import { Difficulty, fetchQuiz, IQuizState } from "./utils/api";
 const Total_QUESTIONS = 10;
 
-type IAnswerObject = {
+export type IAnswerObject = {
   question: string;
   answer: string;
   correct: boolean;
@@ -31,9 +31,27 @@ const App = () => {
     setScore(0);
     setLoading(false);
   };
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {};
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if(!gameOver){
+      const answer = e.currentTarget.value;
+      const correct = questions[number].correct_answer === answer;
+      if(correct)setScore (prev=>prev+1);
+      const userAnswers = {
+        question: questions[number].question,
+        answer,
+        correct,
+        correctAnswer:questions[number].correct_answer,
+      }
+      setUserAnswers(prev=>[...prev,userAnswers])
+    }
+  };
   const nextQuestion = () => {
-    console.log("???");
+    const nextQuestion = number+1;
+    if(nextQuestion === Total_QUESTIONS){
+      setGameOver(true);
+    }else{
+      setNumber(nextQuestion);
+    }
   };
 
   return (
@@ -42,7 +60,7 @@ const App = () => {
       {gameOver || userAnswers.length === Total_QUESTIONS ? (
         <button onClick={startTrivia}>start</button>
       ) : null}
-      {!gameOver && <p>scroe</p>}
+      {!gameOver && <p>score : {score}</p>}
       {loading && <p>loading...</p>}
       {!loading && !gameOver && (
         <QuestionCard
