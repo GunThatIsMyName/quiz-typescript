@@ -1,15 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import CartApp from './cartApp';
-import {QueryClient ,QueryClientProvider} from "react-query";
-
-const clietn =  new QueryClient();
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={clietn}>
-      <CartApp />
-    </QueryClientProvider>
+    <App />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
